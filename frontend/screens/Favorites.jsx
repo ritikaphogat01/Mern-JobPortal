@@ -66,7 +66,7 @@ export const Favorites = ({ onSelectJob, onBack, favorites, onToggleFavorite, on
 
 
   React.useEffect(() => {
-    fetch(API_URL + '/api/applications')
+    fetch('https://mern-jobportal-1-ngjd.onrender.com/api/applications')
       .then(res => res.json())
       .then(data => {
         const counts = {};
@@ -240,5 +240,6 @@ export const Favorites = ({ onSelectJob, onBack, favorites, onToggleFavorite, on
     </div>
   );
 };
+
 
 

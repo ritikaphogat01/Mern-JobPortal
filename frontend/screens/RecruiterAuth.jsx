@@ -27,7 +27,7 @@ export const RecruiterAuth = ({ onBack, onSuccess, pendingJobId }) => {
     try {
       if (!isLogin) {
         // Sign up user first
-        const regRes = await fetch(API_URL + '/api/register', {
+        const regRes = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -47,7 +47,7 @@ export const RecruiterAuth = ({ onBack, onSuccess, pendingJobId }) => {
         }
 
         // Create company record in MongoDB backend when recruiter signs up
-        await fetch(API_URL + '/api/companies', {
+        await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/companies', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -59,7 +59,7 @@ export const RecruiterAuth = ({ onBack, onSuccess, pendingJobId }) => {
         }).catch(console.warn);
 
         // Welcome Notification for Recruiter
-        await fetch(API_URL + '/api/notifications', {
+        await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/notifications', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -70,7 +70,7 @@ export const RecruiterAuth = ({ onBack, onSuccess, pendingJobId }) => {
         }).catch(console.warn);
       } else {
         // Login user
-        const loginRes = await fetch(API_URL + '/api/login', {
+        const loginRes = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -90,7 +90,7 @@ export const RecruiterAuth = ({ onBack, onSuccess, pendingJobId }) => {
 
       // If they just posted a job as an anonymous user, link it to this new/logged-in email!
       if (pendingJobId) {
-        await fetch(`/api/jobs/${pendingJobId}`, {
+        await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/jobs/${pendingJobId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ recruiterEmail: form.email })
@@ -233,5 +233,6 @@ export const RecruiterAuth = ({ onBack, onSuccess, pendingJobId }) => {
     </div>
   );
 };
+
 
 

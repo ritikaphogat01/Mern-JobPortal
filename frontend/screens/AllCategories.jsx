@@ -7,7 +7,7 @@ export const AllCategories = ({ onBack, onSelectCategory }) => {
   const [showSearch, setShowSearch] = useState(false);
 
   useEffect(() => {
-    fetch(API_URL + '/api/categories')
+    fetch('https://mern-jobportal-1-ngjd.onrender.com/api/categories')
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
@@ -79,5 +79,6 @@ export const AllCategories = ({ onBack, onSelectCategory }) => {
     </div>
   );
 };
+
 
 

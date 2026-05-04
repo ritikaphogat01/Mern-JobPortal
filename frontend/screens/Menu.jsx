@@ -25,7 +25,7 @@ export const Menu = ({ onBack, onDownload, onNavigate, hasApprovedJob = false, h
       // Fetch notifications
       const email = localStorage.getItem('candidate_email') || recruiterEmail;
       if (email) {
-        fetch(`/api/notifications/${email}`)
+        fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/notifications/${email}`)
           .then(res => res.json())
           .then(data => { if (Array.isArray(data)) setNotifications(data); })
           .catch(console.error);
@@ -33,7 +33,7 @@ export const Menu = ({ onBack, onDownload, onNavigate, hasApprovedJob = false, h
     }
 
     if (mobile) {
-      fetch(API_URL + '/api/candidates')
+      fetch('https://mern-jobportal-1-ngjd.onrender.com/api/candidates')
         .then(res => res.json())
         .then(data => {
           const cand = data.find((c) => c.mobile === mobile);
@@ -142,5 +142,6 @@ export const Menu = ({ onBack, onDownload, onNavigate, hasApprovedJob = false, h
     </div>
   );
 };
+
 
 

@@ -12,7 +12,7 @@ export const Chats = () => {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    fetch(API_URL + '/api/conversations')
+    fetch('https://mern-jobportal-1-ngjd.onrender.com/api/conversations')
       .then(r => r.json())
       .then(data => { setConversations(data); setLoading(false); })
       .catch(() => setLoading(false));
@@ -23,11 +23,11 @@ export const Chats = () => {
     setMessages([]);
     setMsgLoading(true);
     try {
-      const res = await fetch(`/api/conversations/${conv._id}/messages`);
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/conversations/${conv._id}/messages`);
       const data = await res.json();
       setMessages(data);
       if (conv.unread) {
-        await fetch(`/api/conversations/${conv._id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ unread: false }) });
+        await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/conversations/${conv._id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ unread: false }) });
         setConversations(prev => prev.map(c => c._id === conv._id ? { ...c, unread: false } : c));
       }
     } catch (e) { console.error(e); }
@@ -46,7 +46,7 @@ export const Chats = () => {
     setInputText('');
     setSending(true);
     try {
-      const res = await fetch(`/api/conversations/${activeConv._id}/messages`, {
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/conversations/${activeConv._id}/messages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sender: 'me', text })
@@ -56,7 +56,7 @@ export const Chats = () => {
         setMessages(prev => [...prev, saved]);
         setConversations(prev => prev.map(c => c._id === activeConv._id ? { ...c, lastMessage: text, lastMessageTime: saved.time } : c));
         setTimeout(async () => {
-          const auto = await fetch(`/api/conversations/${activeConv._id}/messages`, {
+          const auto = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/conversations/${activeConv._id}/messages`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ sender: 'them', text: getAutoReply(text) })
@@ -286,5 +286,6 @@ export const Chats = () => {
     </div>
   );
 };
+
 
 

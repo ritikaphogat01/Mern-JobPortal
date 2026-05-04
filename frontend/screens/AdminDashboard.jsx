@@ -148,7 +148,7 @@ export const AdminDashboard = ({ onBack }) => {
     };
     try {
       if (editingPlan) {
-        const res = await fetch(`/api/plans/${(editingPlan)._id || editingPlan.id}`, {
+        const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/plans/${(editingPlan)._id || editingPlan.id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
@@ -158,7 +158,7 @@ export const AdminDashboard = ({ onBack }) => {
           setPlans(prev => prev.map(p => ((p)._id || p.id) === ((editingPlan)._id || editingPlan.id) ? updated : p));
         }
       } else {
-        const res = await fetch(API_URL + '/api/plans', {
+        const res = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/plans', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
@@ -179,7 +179,7 @@ export const AdminDashboard = ({ onBack }) => {
   const handlePlanDelete = async (id) => {
     setPlanDeleting(true);
     try {
-      const res = await fetch(`/api/plans/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/plans/${id}`, { method: 'DELETE' });
       if (res.ok) {
         setPlans(prev => prev.filter(p => ((p)._id || p.id) !== id));
         setDeleteConfirmId(null);
@@ -206,7 +206,7 @@ export const AdminDashboard = ({ onBack }) => {
     setCategorySaving(true);
     const catId = editingCategory ? (editingCategory._id || editingCategory.id) : null;
     try {
-      const res = await fetch(catId ? `/api/categories/${catId}` : '/api/categories', {
+      const res = await fetch(catId ? `https://mern-jobportal-1-ngjd.onrender.com/api/categories/${catId}` : 'https://mern-jobportal-1-ngjd.onrender.com/api/categories', {
         method: catId ? 'PUT' : 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(categoryForm)
@@ -222,7 +222,7 @@ export const AdminDashboard = ({ onBack }) => {
 
   const handleCategoryDelete = async (id) => {
     try {
-      const res = await fetch(`/api/categories/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/categories/${id}`, { method: 'DELETE' });
       if (res.ok) { setCategories(prev => prev.filter(c => (c._id || c.id) !== id)); setDeleteCategoryConfirmId(null); }
     } catch (e) { console.error(e); }
   };
@@ -241,7 +241,7 @@ export const AdminDashboard = ({ onBack }) => {
         updatedSubCats.push(subCategoryForm);
       }
 
-      const res = await fetch(`/api/categories/${activeCategoryId}`, {
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/categories/${activeCategoryId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ subCategories: updatedSubCats })
@@ -262,7 +262,7 @@ export const AdminDashboard = ({ onBack }) => {
       if (!cat) return;
       
       const updatedSubCats = (cat.subCategories || []).filter((s) => s.name !== subName);
-      const res = await fetch(`/api/categories/${activeCategoryId}`, {
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/categories/${activeCategoryId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ subCategories: updatedSubCats })
@@ -320,7 +320,7 @@ export const AdminDashboard = ({ onBack }) => {
     try {
       if (editingSub) {
         const id = (editingSub)._id || editingSub.id;
-        const res = await fetch(`/api/subscriptions/${id}`, {
+        const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/subscriptions/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(subForm),
@@ -330,7 +330,7 @@ export const AdminDashboard = ({ onBack }) => {
           setSubscriptions(prev => prev.map(s => ((s)._id || s.id) === id ? updated : s));
         }
       } else {
-        const res = await fetch(API_URL + '/api/subscriptions', {
+        const res = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/subscriptions', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(subForm),
@@ -351,7 +351,7 @@ export const AdminDashboard = ({ onBack }) => {
   const handleSubDelete = async (id) => {
     setSubDeleting(true);
     try {
-      const res = await fetch(`/api/subscriptions/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/subscriptions/${id}`, { method: 'DELETE' });
       if (res.ok) {
         setSubscriptions(prev => prev.filter(s => ((s)._id || s.id) !== id));
         setDeleteSubConfirmId(null);
@@ -394,10 +394,10 @@ export const AdminDashboard = ({ onBack }) => {
     try {
       if (editingTx) {
         const id = (editingTx)._id || editingTx.id;
-        const res = await fetch(`/api/transactions/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...txForm, amount: Number(txForm.amount) }) });
+        const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/transactions/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...txForm, amount: Number(txForm.amount) }) });
         if (res.ok) { const updated = await res.json(); setTransactions(prev => prev.map(t => ((t)._id || t.id) === id ? updated : t)); }
       } else {
-        const res = await fetch(API_URL + '/api/transactions', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...txForm, amount: Number(txForm.amount) }) });
+        const res = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/transactions', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...txForm, amount: Number(txForm.amount) }) });
         if (res.ok) { const created = await res.json(); setTransactions(prev => [...prev, created]); }
       }
       setShowTxModal(false);
@@ -408,7 +408,7 @@ export const AdminDashboard = ({ onBack }) => {
   const handleTxDelete = async (id) => {
     setTxDeleting(true);
     try {
-      const res = await fetch(`/api/transactions/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/transactions/${id}`, { method: 'DELETE' });
       if (res.ok) { setTransactions(prev => prev.filter(t => ((t)._id || t.id) !== id)); setDeleteTxConfirmId(null); }
     } catch (err) { console.error('Failed to delete transaction', err); }
     finally { setTxDeleting(false); }
@@ -446,10 +446,10 @@ export const AdminDashboard = ({ onBack }) => {
     try {
       if (editingCoupon) {
         const id = (editingCoupon)._id || editingCoupon.id;
-        const res = await fetch(`/api/coupons/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/coupons/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         if (res.ok) { const updated = await res.json(); setCoupons(prev => prev.map(c => ((c)._id || c.id) === id ? updated : c)); }
       } else {
-        const res = await fetch(API_URL + '/api/coupons', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        const res = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/coupons', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         if (res.ok) { const created = await res.json(); setCoupons(prev => [...prev, created]); }
       }
       setShowCouponModal(false);
@@ -460,7 +460,7 @@ export const AdminDashboard = ({ onBack }) => {
   const handleCouponDelete = async (id) => {
     setCouponDeleting(true);
     try {
-      const res = await fetch(`/api/coupons/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/coupons/${id}`, { method: 'DELETE' });
       if (res.ok) { setCoupons(prev => prev.filter(c => ((c)._id || c.id) !== id)); setDeleteCouponConfirmId(null); }
     } catch (err) { console.error('Failed to delete coupon', err); }
     finally { setCouponDeleting(false); }
@@ -492,7 +492,7 @@ export const AdminDashboard = ({ onBack }) => {
       let finalLogoUrl = companyForm.logoUrl;
       if (companyLogoFile) {
         const fd = new FormData(); fd.append('file', companyLogoFile);
-        const uploadRes = await fetch(API_URL + '/api/upload', { method: 'POST', body: fd });
+        const uploadRes = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/upload', { method: 'POST', body: fd });
         const uploadData = await uploadRes.json();
         if (uploadData.success) finalLogoUrl = uploadData.url;
       }
@@ -501,10 +501,10 @@ export const AdminDashboard = ({ onBack }) => {
 
       if (editingCompany) {
         const id = (editingCompany)._id || editingCompany.id;
-        const res = await fetch(`/api/companies/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/companies/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         if (res.ok) { const updated = await res.json(); setCompanies(prev => prev.map(c => ((c)._id || c.id) === id ? updated : c)); }
       } else {
-        const res = await fetch(API_URL + '/api/companies', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        const res = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/companies', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         if (res.ok) { const created = await res.json(); setCompanies(prev => [...prev, created]); }
       }
       setShowCompanyModal(false);
@@ -514,7 +514,7 @@ export const AdminDashboard = ({ onBack }) => {
   const handleCompanyDelete = async (id) => {
     setCompanyDeleting(true);
     try {
-      const res = await fetch(`/api/companies/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/companies/${id}`, { method: 'DELETE' });
       if (res.ok) { setCompanies(prev => prev.filter(c => ((c)._id || c.id) !== id)); setDeleteCompanyConfirmId(null); }
     } catch (err) { console.error('Failed to delete company', err); }
     finally { setCompanyDeleting(false); }
@@ -561,10 +561,10 @@ export const AdminDashboard = ({ onBack }) => {
     try {
       if (editingCandidate) {
         const id = (editingCandidate)._id || editingCandidate.id;
-        const res = await fetch(`/api/candidates/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(candidateForm) });
+        const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/candidates/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(candidateForm) });
         if (res.ok) { const updated = await res.json(); setCandidates(prev => prev.map(c => ((c)._id || c.id) === id ? updated : c)); }
       } else {
-        const res = await fetch(API_URL + '/api/candidates', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(candidateForm) });
+        const res = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/candidates', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(candidateForm) });
         if (res.ok) { const created = await res.json(); setCandidates(prev => [...prev, created]); }
       }
       setShowCandidateModal(false);
@@ -574,7 +574,7 @@ export const AdminDashboard = ({ onBack }) => {
   const handleCandidateDelete = async (id) => {
     setCandidateDeleting(true);
     try {
-      const res = await fetch(`/api/candidates/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/candidates/${id}`, { method: 'DELETE' });
       if (res.ok) { setCandidates(prev => prev.filter(c => ((c)._id || c.id) !== id)); setDeleteCandidateConfirmId(null); }
     } catch (err) { console.error('Failed to delete candidate', err); }
     finally { setCandidateDeleting(false); }
@@ -601,10 +601,10 @@ export const AdminDashboard = ({ onBack }) => {
     try {
       if (editingFlag) {
         const id = (editingFlag)._id || editingFlag.id;
-        const res = await fetch(`/api/flaggeditems/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(flagForm) });
+        const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/flaggeditems/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(flagForm) });
         if (res.ok) { const updated = await res.json(); setFlaggedItems(prev => prev.map(f => ((f)._id || f.id) === id ? updated : f)); }
       } else {
-        const res = await fetch(API_URL + '/api/flaggeditems', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(flagForm) });
+        const res = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/flaggeditems', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(flagForm) });
         if (res.ok) { const created = await res.json(); setFlaggedItems(prev => [created, ...prev]); }
       }
       setShowFlagModal(false);
@@ -613,14 +613,14 @@ export const AdminDashboard = ({ onBack }) => {
   };
   const handleFlagAction = async (id, status) => {
     try {
-      const res = await fetch(`/api/flaggeditems/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) });
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/flaggeditems/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) });
       if (res.ok) { const updated = await res.json(); setFlaggedItems(prev => prev.map(f => ((f)._id || f.id) === id ? updated : f)); }
     } catch (err) { console.error('Failed to update flagged item', err); }
   };
   const handleFlagDelete = async (id) => {
     setFlagDeleting(true);
     try {
-      const res = await fetch(`/api/flaggeditems/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/flaggeditems/${id}`, { method: 'DELETE' });
       if (res.ok) { setFlaggedItems(prev => prev.filter(f => ((f)._id || f.id) !== id)); setDeleteFlagConfirmId(null); }
     } catch (err) { console.error('Failed to delete flagged item', err); }
     finally { setFlagDeleting(false); }
@@ -650,7 +650,7 @@ export const AdminDashboard = ({ onBack }) => {
     if (!auditForm.action.trim()) return;
     setAuditSaving(true);
     try {
-      const res = await fetch(API_URL + '/api/auditlogs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(auditForm) });
+      const res = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/auditlogs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(auditForm) });
       if (res.ok) { const created = await res.json(); setAuditLogs(prev => [created, ...prev]); }
       setShowAuditModal(false);
     } catch (err) { console.error('Failed to save audit log', err); }
@@ -659,7 +659,7 @@ export const AdminDashboard = ({ onBack }) => {
   const handleAuditDelete = async (id) => {
     setAuditDeleting(true);
     try {
-      const res = await fetch(`/api/auditlogs/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/auditlogs/${id}`, { method: 'DELETE' });
       if (res.ok) { setAuditLogs(prev => prev.filter(l => ((l)._id || l.id) !== id)); setDeleteAuditConfirmId(null); }
     } catch (err) { console.error('Failed to delete audit log', err); }
     finally { setAuditDeleting(false); }
@@ -668,7 +668,7 @@ export const AdminDashboard = ({ onBack }) => {
   const handleDeleteApplication = async (id) => {
     if (!window.confirm('Are you sure you want to delete this application?')) return;
     try {
-      const res = await fetch(`/api/applications/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/applications/${id}`, { method: 'DELETE' });
       if (res.ok) {
         setApplications(apps => apps.filter(a => (a._id !== id && a.id !== id)));
       }
@@ -678,18 +678,18 @@ export const AdminDashboard = ({ onBack }) => {
   const loadAdminData = async () => {
     try {
       const [plansRes, subsRes, txRes, cpRes, logsRes, menuRes, companiesRes, candidatesRes, catRes, flaggedRes, jobsRes, appsRes] = await Promise.all([
-        fetch(API_URL + '/api/plans'),
-        fetch(API_URL + '/api/subscriptions'),
-        fetch(API_URL + '/api/transactions'),
-        fetch(API_URL + '/api/coupons'),
-        fetch(API_URL + '/api/auditlogs'),
-        fetch(API_URL + '/api/admin/menu'),
-        fetch(API_URL + '/api/companies'),
-        fetch(API_URL + '/api/candidates'),
-        fetch(API_URL + '/api/categories'),
-        fetch(API_URL + '/api/flaggeditems'),
-        fetch(API_URL + '/api/admin/jobs'),
-        fetch(API_URL + '/api/applications')
+        fetch('https://mern-jobportal-1-ngjd.onrender.com/api/plans'),
+        fetch('https://mern-jobportal-1-ngjd.onrender.com/api/subscriptions'),
+        fetch('https://mern-jobportal-1-ngjd.onrender.com/api/transactions'),
+        fetch('https://mern-jobportal-1-ngjd.onrender.com/api/coupons'),
+        fetch('https://mern-jobportal-1-ngjd.onrender.com/api/auditlogs'),
+        fetch('https://mern-jobportal-1-ngjd.onrender.com/api/admin/menu'),
+        fetch('https://mern-jobportal-1-ngjd.onrender.com/api/companies'),
+        fetch('https://mern-jobportal-1-ngjd.onrender.com/api/candidates'),
+        fetch('https://mern-jobportal-1-ngjd.onrender.com/api/categories'),
+        fetch('https://mern-jobportal-1-ngjd.onrender.com/api/flaggeditems'),
+        fetch('https://mern-jobportal-1-ngjd.onrender.com/api/admin/jobs'),
+        fetch('https://mern-jobportal-1-ngjd.onrender.com/api/applications')
       ]);
       if (plansRes.ok) setPlans(await plansRes.json());
       if (subsRes.ok) setSubscriptions(await subsRes.json());
@@ -1427,7 +1427,7 @@ export const AdminDashboard = ({ onBack }) => {
   const handleJobVerification = async (id, newStatus) => {
     setJobUpdating(id);
     try {
-      const res = await fetch(`/api/jobs/${id}`, {
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/jobs/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
@@ -1447,7 +1447,7 @@ export const AdminDashboard = ({ onBack }) => {
     if (!window.confirm('Are you sure you want to delete this job permanently?')) return;
     setJobUpdating(id);
     try {
-      const res = await fetch(`/api/jobs/${id}`, { method: 'DELETE' });
+      const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/jobs/${id}`, { method: 'DELETE' });
       if (res.ok) {
         setAdminJobs(prev => prev.filter(j => ((j)._id || j.id) !== id));
       }
@@ -1592,7 +1592,7 @@ export const AdminDashboard = ({ onBack }) => {
                           const formData = new FormData();
                           formData.append('file', file);
                           try {
-                            const res = await fetch(API_URL + '/api/upload', { method: 'POST', body: formData });
+                            const res = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/upload', { method: 'POST', body: formData });
                             const data = await res.json();
                             if (data.url) setCategoryForm({ ...categoryForm, imageUrl: data.url });
                           } catch (err) {
@@ -1899,7 +1899,7 @@ export const AdminDashboard = ({ onBack }) => {
       
       if (editingJob) {
         const id = editingJob._id || editingJob.id;
-        const res = await fetch(`/api/admin/jobs/${id}/status`, {
+        const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/admin/jobs/${id}/status`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ status: jobForm.status })
@@ -1907,11 +1907,11 @@ export const AdminDashboard = ({ onBack }) => {
         if (res.ok) {
            // We'd ideally want to update the full job, but the API might only support status update.
            // For now, let's just refresh adminJobs
-           const newJobsRes = await fetch(API_URL + '/api/admin/jobs');
+           const newJobsRes = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/admin/jobs');
            if (newJobsRes.ok) setAdminJobs(await newJobsRes.json());
         }
       } else {
-        const res = await fetch(API_URL + '/api/jobs', {
+        const res = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/jobs', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload)
@@ -3132,5 +3132,6 @@ export const AdminDashboard = ({ onBack }) => {
     </div>
   );
 };
+
 
 

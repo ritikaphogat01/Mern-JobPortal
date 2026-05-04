@@ -80,3 +80,4 @@ export const TalentDetails = ({ talent, onBack }) => {
 };
 
 
+

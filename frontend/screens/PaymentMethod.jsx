@@ -13,7 +13,7 @@ export const PaymentMethod = ({ jobId, planId, planName, amount, isBoosted, coup
     setProcessing(true);
 
     try {
-      const response = await fetch(API_URL + '/api/payments/create-order', {
+      const response = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/payments/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: finalAmount, currency: 'INR' })
@@ -29,7 +29,7 @@ export const PaymentMethod = ({ jobId, planId, planName, amount, isBoosted, coup
       const handlerCallback = async (response) => {
         try {
           setProcessing(true);
-          const verifyRes = await fetch(API_URL + '/api/payments/verify', {
+          const verifyRes = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/payments/verify', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ ...response, jobId })
@@ -40,11 +40,11 @@ export const PaymentMethod = ({ jobId, planId, planName, amount, isBoosted, coup
             // Update Coupon Count if used
             if (couponCode) {
                try {
-                 const cRes = await fetch(API_URL + '/api/coupons');
+                 const cRes = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/coupons');
                  const coupons = await cRes.json();
                  const c = coupons.find((x) => x.code === couponCode);
                  if (c) {
-                    await fetch(`/api/coupons/${c._id || c.id}`, {
+                    await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/coupons/${c._id || c.id}`, {
                       method: 'PUT',
                       headers: { 'Content-Type': 'application/json' },
                       body: JSON.stringify({ ...c, usageCount: (c.usageCount || 0) + 1 })
@@ -58,7 +58,7 @@ export const PaymentMethod = ({ jobId, planId, planName, amount, isBoosted, coup
 
             if (planId === 'boost_only') {
               // Boost: update job to featured, use one credit
-              await fetch(`/api/jobs/${jobId}`, {
+              await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/jobs/${jobId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: 'paid', isFeatured: true, paymentInfo: { method: 'razorpay_boost', paymentId: response.razorpay_payment_id, amount: finalAmount, planName: planName || 'Boost', paidAt: new Date().toISOString() } })
@@ -68,7 +68,7 @@ export const PaymentMethod = ({ jobId, planId, planName, amount, isBoosted, coup
               localStorage.setItem(`recruiter_used_${email}`, (boostUsed + 1).toString());
             } else {
               // New Plan: update job status and save subscription
-              await fetch(`/api/jobs/${jobId}`, {
+              await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/jobs/${jobId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: 'paid', isFeatured: isBoosted || false, paymentInfo: { method: 'razorpay_package', paymentId: response.razorpay_payment_id, amount: finalAmount, planName: planName || 'Package', paidAt: new Date().toISOString() } })
@@ -82,7 +82,7 @@ export const PaymentMethod = ({ jobId, planId, planName, amount, isBoosted, coup
               localStorage.setItem(`recruiter_used_${email}`, '1'); // First post = this job
 
               // Also save backend subscription
-              await fetch(API_URL + '/api/subscriptions', {
+              await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/subscriptions', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -100,7 +100,7 @@ export const PaymentMethod = ({ jobId, planId, planName, amount, isBoosted, coup
               }).catch(console.warn);
             }
 
-            await fetch(API_URL + '/api/transactions', {
+            await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/transactions', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -269,5 +269,6 @@ export const PaymentMethod = ({ jobId, planId, planName, amount, isBoosted, coup
     </div>
   );
 };
+
 
 

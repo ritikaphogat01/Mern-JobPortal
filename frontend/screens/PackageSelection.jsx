@@ -15,7 +15,7 @@ export const PackageSelection = ({ jobId, isBoosted, onBack, onNext }) => {
   useEffect(() => {
     setLoading(true);
     // Fetch Plans
-    fetch(API_URL + '/api/plans')
+    fetch('https://mern-jobportal-1-ngjd.onrender.com/api/plans')
       .then(res => res.json())
       .then(data => {
         const recruiterPlans = data.filter((p) => p.role === 'EMPLOYER' || p.role === 'Recruiter');
@@ -25,7 +25,7 @@ export const PackageSelection = ({ jobId, isBoosted, onBack, onNext }) => {
       .catch(() => setLoading(false));
 
     // Fetch Coupons
-    fetch(API_URL + '/api/coupons')
+    fetch('https://mern-jobportal-1-ngjd.onrender.com/api/coupons')
       .then(res => res.json())
       .then(data => {
         const valid = data.filter((c) => 
@@ -316,5 +316,6 @@ export const PackageSelection = ({ jobId, isBoosted, onBack, onNext }) => {
     </div>
   );
 };
+
 
 

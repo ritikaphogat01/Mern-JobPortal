@@ -9,7 +9,7 @@ export const JobDetails = ({ job, onBack, favorites, onToggleFavorite, onShare }
 
   useEffect(() => {
     // Fetch applicant count
-    fetch(API_URL + '/api/applications')
+    fetch('https://mern-jobportal-1-ngjd.onrender.com/api/applications')
       .then(res => res.json())
       .then(data => {
         const count = data.filter((a) => 
@@ -214,7 +214,7 @@ export const JobDetails = ({ job, onBack, favorites, onToggleFavorite, onShare }
           onSubmit={async (resumeUrl, name, email, qualification, expectedSalary, phone) => {
             try {
               const accountMobile = localStorage.getItem('candidate_mobile') || '';
-              await fetch(API_URL + '/api/applications', {
+              await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/applications', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -264,5 +264,6 @@ export const JobDetails = ({ job, onBack, favorites, onToggleFavorite, onShare }
     </div>
   );
 };
+
 
 

@@ -55,7 +55,7 @@ export const Search = ({
 
   React.useEffect(() => {
     // Fetch categories to understand parent/subcategory hierarchy
-    fetch(API_URL + '/api/categories')
+    fetch('https://mern-jobportal-1-ngjd.onrender.com/api/categories')
       .then(res => res.json())
       .then(data => setCategoriesData(data))
       .catch(console.error);
@@ -518,5 +518,6 @@ export const Search = ({
     </div>
   );
 };
+
 
 

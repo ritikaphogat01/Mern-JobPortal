@@ -7,7 +7,7 @@ export const HireSearch = ({ initialCategory, onPostJob, onBack }) => {
   const [loading, setLoading] = useState(true);
 
   React.useEffect(() => {
-    fetch(API_URL + '/api/categories')
+    fetch('https://mern-jobportal-1-ngjd.onrender.com/api/categories')
       .then(res => res.json())
       .then(data => {
         setCategories(data);
@@ -76,5 +76,6 @@ export const HireSearch = ({ initialCategory, onPostJob, onBack }) => {
     </div>
   );
 };
+
 
 

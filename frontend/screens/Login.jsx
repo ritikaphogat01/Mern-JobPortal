@@ -36,7 +36,7 @@ export const Login = ({ onLogin }) => {
 
     setLoading(true);
     try {
-      const endpoint = mode === 'login' ? '/api/login' : '/api/register';
+      const endpoint = mode === 'login' ? 'https://mern-jobportal-1-ngjd.onrender.com/api/login' : 'https://mern-jobportal-1-ngjd.onrender.com/api/register';
       const body = mode === 'login' 
         ? { email, password, role: 'Job Seeker' }
         : { username: name, email, password, role: 'Job Seeker', phone };
@@ -60,7 +60,7 @@ export const Login = ({ onLogin }) => {
         localStorage.setItem('candidate_phone', data.user.phone || '');
 
         // Notification hit
-        fetch(API_URL + '/api/notifications', {
+        fetch('https://mern-jobportal-1-ngjd.onrender.com/api/notifications', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ 
@@ -291,5 +291,6 @@ export const Login = ({ onLogin }) => {
     </div>
   );
 };
+
 
 

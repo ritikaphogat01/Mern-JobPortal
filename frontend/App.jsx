@@ -62,7 +62,7 @@ const App = () => {
   // Fetch all jobs globally
   useEffect(() => {
     const fetchJobs = () => {
-      fetch(API_URL + '/api/jobs')
+      fetch('https://mern-jobportal-1-ngjd.onrender.com/api/jobs')
         .then(res => res.json())
         .then(data => {
           if (Array.isArray(data)) {
@@ -104,7 +104,7 @@ const App = () => {
     const checkJobStatus = async () => {
       try {
         // Query jobs for this recruiter
-        const res = await fetch(`/api/admin/jobs`);
+        const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/admin/jobs`);
         if (res.ok) {
           const allJobs = await res.json();
           const formattedEmail = String(recruiterEmail || '').trim().toLowerCase();
@@ -417,14 +417,14 @@ const App = () => {
               localStorage.setItem(`recruiter_used_${formattedEmail}`, newUsed.toString());
 
               // Update job status
-              await fetch(`/api/jobs/${jobId}`, {
+              await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/jobs/${jobId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status: 'paid', isFeatured: false, paymentInfo: { method: 'plan_credit', amount: 0, planName: 'Plan Credit', paidAt: new Date().toISOString() } })
               }).catch(console.warn);
 
               // Sync to backend
-              fetch(API_URL + '/api/subscriptions/use-credit', {
+              fetch('https://mern-jobportal-1-ngjd.onrender.com/api/subscriptions/use-credit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: formattedEmail })
@@ -456,7 +456,7 @@ Please purchase a new plan to continue posting jobs.`);
 
             // FALLBACK: Check backend subscription (for users who bought plan before this update)
             try {
-              const res = await fetch(`/api/subscriptions/active/${formattedEmail}`);
+              const res = await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/subscriptions/active/${formattedEmail}`);
               const sub = await res.json();
               const remaining = sub?.remainingCredits || 0;
               const total = sub?.creditsTotal || 0;
@@ -473,13 +473,13 @@ Please purchase a new plan to continue posting jobs.`);
                 localStorage.setItem(`recruiter_limit_${formattedEmail}`, total.toString());
                 localStorage.setItem(`recruiter_used_${formattedEmail}`, (total - remaining + 1).toString());
 
-                await fetch(`/api/jobs/${jobId}`, {
+                await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/jobs/${jobId}`, {
                   method: 'PUT',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({ status: 'paid', isFeatured: false, paymentInfo: { method: 'plan_credit', amount: 0, planName: 'Plan Credit', paidAt: new Date().toISOString() } })
                 }).catch(console.warn);
 
-                fetch(API_URL + '/api/subscriptions/use-credit', {
+                fetch('https://mern-jobportal-1-ngjd.onrender.com/api/subscriptions/use-credit', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({ email: formattedEmail })
@@ -666,5 +666,6 @@ You have ${newRemaining} more free job posts remaining in your plan.`);
 };
 
 export default App;
+
 
 

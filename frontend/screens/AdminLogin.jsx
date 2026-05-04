@@ -23,7 +23,7 @@ export const AdminLogin = ({ onLoginSuccess, onBack }) => {
     }
 
     // call backend API to validate credentials for other users or real DB
-    fetch(API_URL + '/api/admin/login', {
+    fetch('https://mern-jobportal-1-ngjd.onrender.com/api/admin/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: userId, password })
@@ -129,5 +129,6 @@ export const AdminLogin = ({ onLoginSuccess, onBack }) => {
     </div>
   );
 };
+
 
 

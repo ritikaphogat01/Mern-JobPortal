@@ -36,7 +36,7 @@ export const Home = ({
     if (!identifier) return;
     
     setLoadingNotifs(true);
-    fetch(`/api/notifications/${identifier}`)
+    fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/notifications/${identifier}`)
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
@@ -76,14 +76,14 @@ export const Home = ({
   const dismissNotification = async (id) => {
     // Optimistic UI
     setNotifications(prev => prev.filter(n => (n._id || n.id) !== id));
-    fetch(`/api/notifications/${id}`, { method: 'DELETE' }).catch(console.error);
+    fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/notifications/${id}`, { method: 'DELETE' }).catch(console.error);
   };
 
   const markAllAsRead = () => {
     const mobile = localStorage.getItem('candidate_mobile');
     if (!mobile) return;
     setNotifications([]);
-    fetch(`/api/notifications/clear/${mobile}`, { method: 'DELETE' }).catch(console.error);
+    fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/notifications/clear/${mobile}`, { method: 'DELETE' }).catch(console.error);
   };
 
   // Check login status
@@ -98,7 +98,7 @@ export const Home = ({
 
   // Fetch categories from API dynamically
   React.useEffect(() => {
-    fetch(API_URL + '/api/categories')
+    fetch('https://mern-jobportal-1-ngjd.onrender.com/api/categories')
       .then(res => {
         if (!res.ok || !res.headers.get('content-type')?.includes('application/json')) throw new Error('API Error');
         return res.json();
@@ -666,5 +666,6 @@ export const Home = ({
     </div>
   );
 };
+
 
 

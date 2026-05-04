@@ -51,7 +51,7 @@ export const RecruiterDashboard = ({ onBack, onPostJob, onNavigate }) => {
       localStorage.setItem('recruiter_company', profileForm.company);
       localStorage.setItem('recruiter_mobile', profileForm.mobile);
       localStorage.setItem('recruiter_location', profileForm.location);
-      await fetch(API_URL + '/api/companies', {
+      await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/companies', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: profileForm.company, industry: 'Recruitment', email: localStorage.getItem('recruiter_email') || '', status: 'Active', location: profileForm.location })
@@ -64,7 +64,7 @@ export const RecruiterDashboard = ({ onBack, onPostJob, onNavigate }) => {
     const recruiterEmail = String(localStorage.getItem('recruiter_email') || '').trim().toLowerCase();
     
     // Fetch Applications
-    fetch(API_URL + '/api/applications')
+    fetch('https://mern-jobportal-1-ngjd.onrender.com/api/applications')
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
@@ -89,7 +89,7 @@ export const RecruiterDashboard = ({ onBack, onPostJob, onNavigate }) => {
       .catch(console.error);
 
     // Fetch My Vacancies
-    fetch(API_URL + '/api/admin/jobs')
+    fetch('https://mern-jobportal-1-ngjd.onrender.com/api/admin/jobs')
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
@@ -101,7 +101,7 @@ export const RecruiterDashboard = ({ onBack, onPostJob, onNavigate }) => {
       .finally(() => setLoading(false));
 
     // Fetch My Transactions
-    fetch(API_URL + '/api/transactions')
+    fetch('https://mern-jobportal-1-ngjd.onrender.com/api/transactions')
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
@@ -116,7 +116,7 @@ export const RecruiterDashboard = ({ onBack, onPostJob, onNavigate }) => {
       console.log('🔄 Updating Status for:', applicant.name, 'to:', newStatus);
       
       setCandidates(prev => prev.map(c => c.id === id ? { ...c, status: newStatus } : c));
-      await fetch(`/api/applications/${id}/status`, {
+      await fetch(`https://mern-jobportal-1-ngjd.onrender.com/api/applications/${id}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: newStatus })
@@ -135,7 +135,7 @@ export const RecruiterDashboard = ({ onBack, onPostJob, onNavigate }) => {
         type: newStatus === 'Rejected' ? 'error' : 'success'
       };
       
-      const res = await fetch(API_URL + '/api/notifications', {
+      const res = await fetch('https://mern-jobportal-1-ngjd.onrender.com/api/notifications', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(notifData)
@@ -525,5 +525,6 @@ export const RecruiterDashboard = ({ onBack, onPostJob, onNavigate }) => {
     </div>
   );
 };
+
 
 
